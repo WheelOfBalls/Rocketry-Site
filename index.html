@@ -139,20 +139,19 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
     <div id="announcements" class="card reveal" style="flex:1 1 350px;min-width:300px;">
       <h2>Announcements</h2>
       <!-- To add, edit, or remove announcements, simply update the list below -->
-      <ul class="clean" id="announcements">
-    </ul>
-    <script>
-      fetch('announcments.txt')
-        .then(response => response.text())
-        .then(text => {
-          const list = document.querySelector('.clean');
-          list.innerHTML = text
-            .split('\n')
-            .filter(line => line.trim())
-            .map(line => `<li>${line}</li>`)
-            .join('');
-        });
-    </script>
+      <ul class="clean" id="announcements-list"></ul>
+      <script>
+        fetch('announcments.txt')
+          .then(response => response.text())
+          .then(text => {
+            const list = document.getElementById('announcements-list');
+            list.innerHTML = text
+              .split('\n')
+              .filter(line => line.trim())
+              .map(line => `<li>${line}</li>`)
+              .join('');
+          });
+      </script>
     </div>
     <!-- Calendar Section -->
     <div id="calendar" class="card reveal" style="flex:1 1 350px;min-width:300px;">
