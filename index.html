@@ -145,7 +145,7 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
       fetch('announcments.txt')
         .then(response => response.text())
         .then(text => {
-          const list = document.getElementById('announcements');
+          const list = document.querySelector('.clean');
           list.innerHTML = text
             .split('\n')
             .filter(line => line.trim())
