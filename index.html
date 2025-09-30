@@ -140,9 +140,19 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
       <h2>Announcements</h2>
       <!-- To add, edit, or remove announcements, simply update the list below -->
       <ul class="clean" id="announcements">
-        <li>Welcome to the new UTS Rocketry website!</li>
-        <li>Team meeting at 4pm in Room 101.</li>
-        <!-- Add or remove <li> elements for announcements -->
+    </ul>
+    <script>
+      fetch('announcments.txt')
+        .then(response => response.text())
+        .then(text => {
+          const list = document.getElementById('announcements');
+          list.innerHTML = text
+            .split('\n')
+            .filter(line => line.trim())
+            .map(line => `<li>${line}</li>`)
+            .join('');
+        });
+    </script>
       </ul>
     </div>
     <!-- Calendar Section -->
