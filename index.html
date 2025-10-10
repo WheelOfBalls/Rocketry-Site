@@ -341,17 +341,17 @@ function showMembersPortal() {
   document.getElementById('back-btn').style.display = '';
 }
 
-// Password gating for members portal
-const KEY = 'uts-members-auth';
+// Password gating for members portal (in-memory, works in Google Sites embeds)
+let membersAuthenticated = false;
 const PASS = 'ILuvRocketry';
 document.getElementById('members-btn').addEventListener('click', () => {
-  if (sessionStorage.getItem(KEY) === '1') {
+  if (membersAuthenticated) {
     showMembersPortal();
     return;
   }
   const input = window.prompt('Enter members password:');
   if (input === PASS) {
-    sessionStorage.setItem(KEY, '1');
+    membersAuthenticated = true;
     showMembersPortal();
   }
 });
@@ -395,11 +395,6 @@ fetch('announcments.txt')
     const list = document.getElementById('members-announcements');
     if (list) list.innerHTML = '<li>No announcements</li>';
   });
-
-// If already authenticated, show members portal on load (for reloads)
-if (sessionStorage.getItem(KEY) === '1') {
-  showMembersPortal();
-}
 </script>
 </body>
 </html>
