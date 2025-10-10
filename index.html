@@ -299,8 +299,22 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
 <footer><div class="container">© 2025 UTS Rocketry · University of Toronto Schools</div></footer>
 </footer>
 
+
 <button class="fab" id="members-btn" aria-label="Open members portal">Members Portal</button>
 <button class="fab" id="back-btn" aria-label="Back to main page" style="display:none;">Back to Site</button>
+
+<!-- Password Modal -->
+<div id="password-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(14,24,36,0.32);z-index:99999;align-items:center;justify-content:center;">
+  <div style="background:var(--bg-elev);border-radius:18px;box-shadow:0 8px 32px -12px var(--blue-600);padding:32px 28px;max-width:340px;width:90%;margin:auto;text-align:center;">
+    <h2 style="margin-top:0;margin-bottom:18px;">Members Portal</h2>
+    <p style="margin-bottom:18px;">Enter members password:</p>
+    <input id="password-input" type="password" style="width:90%;padding:10px 12px;border-radius:8px;border:1px solid var(--ink-500);font-size:1.1em;" autocomplete="off">
+    <div style="margin-top:18px;">
+      <button id="password-submit" class="btn primary" style="width:100%;">Enter</button>
+      <div id="password-error" style="color:#d00;font-size:0.98em;margin-top:10px;display:none;">Incorrect password. Try again.</div>
+    </div>
+  </div>
+</div>
 
 <script>
 for (const a of document.querySelectorAll('a[href^="#"]')){
@@ -341,19 +355,48 @@ function showMembersPortal() {
   document.getElementById('back-btn').style.display = '';
 }
 
-// Password gating for members portal (in-memory, works in Google Sites embeds)
+// Password gating for members portal (custom modal, works in Google Sites embeds)
 let membersAuthenticated = false;
 const PASS = 'ILuvRocketry';
+const modal = document.getElementById('password-modal');
+const input = document.getElementById('password-input');
+const submit = document.getElementById('password-submit');
+const errorMsg = document.getElementById('password-error');
+
+function openPasswordModal() {
+  modal.style.display = 'flex';
+  input.value = '';
+  errorMsg.style.display = 'none';
+  setTimeout(() => { input.focus(); }, 100);
+}
+function closePasswordModal() {
+  modal.style.display = 'none';
+}
+
 document.getElementById('members-btn').addEventListener('click', () => {
   if (membersAuthenticated) {
     showMembersPortal();
     return;
   }
-  const input = window.prompt('Enter members password:');
-  if (input === PASS) {
+  openPasswordModal();
+});
+
+submit.addEventListener('click', () => {
+  if (input.value === PASS) {
     membersAuthenticated = true;
+    closePasswordModal();
     showMembersPortal();
+  } else {
+    errorMsg.style.display = 'block';
+    input.value = '';
+    input.focus();
   }
+});
+input.addEventListener('keydown', e => {
+  if (e.key === 'Enter') submit.click();
+});
+modal.addEventListener('click', e => {
+  if (e.target === modal) closePasswordModal();
 });
 document.getElementById('back-btn').addEventListener('click', () => {
   showMainPage();
