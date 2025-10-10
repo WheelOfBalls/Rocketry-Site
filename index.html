@@ -280,7 +280,7 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
   <h2>Calendar</h2>
   <iframe src="https://calendar.google.com/calendar/embed?src=c_afa571590d45f8b7148ae069df7cc04c6e04460a0d4b8ba48afbbb7ca5e38710%40group.calendar.google.com&ctz=America/Toronto&mode=week" style="border:0;width:100%;height:350px;" frameborder="0" scrolling="no"></iframe>
       <div style="margin-top:0.5em;">
-        <a href="https://calendar.google.com/calendar/u/0?cid=Y19hZmE1NzE1OTBkNDVmOGI3MTQ4YWUwNjlkZjdjYzA0YzZlMDQ0NjBhMGQ0YjhiYTQ4YWZiYmI3Y2E1ZTM4NzEwQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20" target="_blank" rel="noopener" class="calendar-btn">Subscribe to Calendar</a>
+        <a href="https://calendar.google.com/calendar/u/0?cid=Y19hZmE1NzE1OTBkNDVmOGI3MTQ4YWUwNjlkZjdjYzA0YzZlMDQ0NjBhMGQ0YjhiYTQ4YWZiYmI3Y2E1ZTM4NzEwQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20" target="_blank" rel="noopener" style="font-size:0.95em;text-decoration:underline;">Subscribe to Calendar</a>
       </div>
     </div>
   </div>
@@ -409,33 +409,10 @@ fetch('announcments.txt')
     if (list) list.innerHTML = '<li>No announcements</li>';
   });
 
-// Fix: Always show main page fade sections on initial load
-window.addEventListener('DOMContentLoaded', function() {
-  if (sessionStorage.getItem(KEY) === '1') {
-    showMembersPortal();
-  } else {
-    // Ensure all main fade sections are visible
-    [
-      'main-hero', 'project', 'skills', 'announcements-calendar', 'contact'
-    ].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        el.style.display = '';
-        el.classList.add('is-visible');
-      }
-    });
-    // Hide all members fade sections
-    [
-      'members-hero', 'members-announcements-section', 'members-calendar-section', 'members-contact-section'
-    ].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        el.style.display = 'none';
-        el.classList.remove('is-visible');
-      }
-    });
-  }
-});
+// If already authenticated, show members portal on load (for reloads)
+if (sessionStorage.getItem(KEY) === '1') {
+  showMembersPortal();
+}
 </script>
 </body>
 </html>
