@@ -59,6 +59,22 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
   margin-left: auto;
   margin-right: auto;
 }
+/* Floating action button (bottom-right) */
+.fab {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: var(--blue-600);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 14px 18px;
+  font-weight: 800;
+  box-shadow: 0 12px 28px -14px var(--blue-600);
+  cursor: pointer;
+  z-index: 9999;
+}
+.fab:hover { filter: brightness(1.05); }
 </style>
 </head>
 <body>
@@ -153,15 +169,23 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
       <!-- To add, edit, or remove announcements, simply update the list below -->
       <ul class="clean" id="announcements-list"></ul>
       <script>
+        // Load ONLY public announcements (exclude lines wrapped in backticks `...`)
         fetch('announcments.txt')
-          .then(response => response.text())
+          .then(r => r.ok ? r.text() : Promise.reject(new Error('Announcements not found')))
           .then(text => {
             const list = document.getElementById('announcements-list');
-            list.innerHTML = text
+            const publicLines = text
               .split('\n')
-              .filter(line => line.trim())
-              .map(line => `<li>${line}</li>`)
-              .join('');
+              .map(l => l.trim())
+              .filter(Boolean)
+              .filter(l => !(l.startsWith('`') && l.endsWith('`')));
+            list.innerHTML = publicLines.length
+              ? publicLines.map(line => `<li>${line}</li>`).join('')
+              : '<li>No announcements</li>';
+          })
+          .catch(() => {
+            const list = document.getElementById('announcements-list');
+            if (list) list.innerHTML = '<li>No announcements right now</li>';
           });
       </script>
     </div>
@@ -191,6 +215,8 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
 
 <footer><div class="container">© 2025 UTS Rocketry · University of Toronto Schools</div></footer>
 
+<button class="fab" id="members-btn" aria-label="Open members portal">Members Portal</button>
+
 <script>
 for (const a of document.querySelectorAll('a[href^="#"]')){
   a.addEventListener('click', e => {
@@ -201,6 +227,26 @@ for (const a of document.querySelectorAll('a[href^="#"]')){
 }
 const io = new IntersectionObserver((entries)=>{entries.forEach(en=>{ if(en.isIntersecting) en.target.classList.add('is-in'); })}, {threshold:.2});
 document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+
+// Gate to members portal with a lightweight password prompt
+(function(){
+  const KEY = 'uts-members-auth';
+  const PASS = 'ILuvRocketry';
+  const btn = document.getElementById('members-btn');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    // If already authenticated this session, go straight in
+    if (sessionStorage.getItem(KEY) === '1') {
+      window.location.href = 'members.html';
+      return;
+    }
+    const input = window.prompt('Enter members password:');
+    if (input === PASS) {
+      sessionStorage.setItem(KEY, '1');
+      window.location.href = 'members.html';
+    }
+  });
+})();
 </script>
 </body>
 </html>

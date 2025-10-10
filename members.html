@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UTS Rocketry — Members Portal</title>
+<meta name="description" content="UTS Rocketry members portal.">
+<style>
+:root { --blue-600:#0a6cff; --blue-500:#1d7fff; --blue-300:#69bbff;
+        --ink-900:#0e1824; --ink-700:#37475e; --ink-500:#6a7b94;
+        --bg:#ffffff; --bg-elev:#f6f8fb; --radius:16px; }
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0b1119; --bg-elev:#0f1827; --ink-900:#e9f1ff; --ink-700:#c2d6fb; --ink-500:#9bb2db; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink-900);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+a{color:var(--blue-500);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:1100px;margin:auto;padding:0 18px}
+.card{background:var(--bg-elev);border:1px solid color-mix(in oklab,var(--ink-500) 18%, transparent);border-radius:var(--radius);padding:20px}
+section{padding:42px 0}
+h2{font-size:clamp(24px,3vw,36px);margin:0 0 8px;font-weight:900}
+ul.clean{list-style:none;padding:0;margin:0}
+ul.clean li{margin:10px 0;padding-left:26px;position:relative}
+ul.clean li:before{content:"✦";position:absolute;left:0;top:0;color:var(--blue-500)}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+@media (max-width:900px){ .grid-2 {grid-template-columns:1fr} }
+/* Floating action buttons */
+.fab{position:fixed;right:20px;bottom:20px;background:var(--blue-600);color:#fff;border:none;border-radius:999px;padding:14px 18px;font-weight:800;box-shadow:0 12px 28px -14px var(--blue-600);cursor:pointer;z-index:9999}
+.fab:hover{filter:brightness(1.05)}
+</style>
+</head>
+
+<body>
+<section class="hero">
+  <div class="container hero-wrap">
+    <div>
+      <div class="brand">
+        <img src="assets/logo.png" alt="UTS Rocketry Logo" style="height:58px;vertical-align:middle;">
+        <span style="font-size:2.1rem;font-weight:900;vertical-align:middle;">UTS Rocketry</span>
+      </div>
+      <h1 style="font-size:clamp(34px,5vw,56px);line-height:1.12;margin:0 0 12px;font-weight:900">Members Portal</h1>
+      <p class="lead">Welcome to the UTS Rocketry members portal. Access exclusive announcements and resources for team members.</p>
+    </div>
+    <div class="card" role="img" aria-label="UTS Rocketry mark" style="background:transparent;box-shadow:none;border:none;">
+        <!-- Optionally add a logo or illustration here -->
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="card" style="margin-top:18px">
+      <h2>Members Announcements</h2>
+      <ul class="clean" id="members-announcements"></ul>
+    </div>
+  </div>
+</section>
+
+
+<section style="padding-top:0;">
+  <div class="container">
+    <div id="calendar" class="card" style="flex:1 1 350px;min-width:300px;">
+      <h2>Calendar</h2>
+      <iframe src="https://calendar.google.com/calendar/embed?src=c_afa571590d45f8b7148ae069df7cc04c6e04460a0d4b8ba48afbbb7ca5e38710%40group.calendar.google.com&ctz=America/Toronto&mode=week" style="border:0;width:100%;height:350px;" frameborder="0" scrolling="no"></iframe>
+      <div style="margin-top:0.5em;">
+        <a href="https://calendar.google.com/calendar/u/0?cid=Y19hZmE1NzE1OTBkNDVmOGI3MTQ4YWUwNjlkZjdjYzA0YzZlMDQ0NjBhMGQ0YjhiYTQ4YWZiYmI3Y2E1ZTM4NzEwQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20" target="_blank" rel="noopener" style="font-size:0.95em;text-decoration:underline;">Subscribe to Calendar</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container grid-2">
+    <div class="card reveal" style="grid-column: span 2;">
+      <h2 style="text-align:center;">Meet the Team</h2>
+      <div style="max-width:520px;width:100%;margin:auto;">
+        <p><strong>Execs:</strong> <a href="mailto:zhajoh@utschools.ca">Johnathan Zhang</a> · <a href="mailto:lunoi@utschools.ca">Oisin Lundon</a> · <a href="mailto:llma@utschools.ca">Mattias Libesman‑Lee</a></p>
+        <p><strong>Staff Supervisor:</strong> <a href="mailto:thomas.nachshen@utschools.ca">Mr. Nachshen</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<button class="fab" id="back-btn" aria-label="Back to main page">Back to Site</button>
+
+<script>
+// Simple password gating using sessionStorage for the session
+(function gate(){
+  const KEY = 'uts-members-auth';
+  const PASS = 'ILuvRocketry';
+  const ok = sessionStorage.getItem(KEY) === '1';
+  if (!ok) {
+    const input = window.prompt('Enter members password:');
+    if (input !== PASS) { window.location.replace('index.html'); return; }
+    sessionStorage.setItem(KEY, '1');
+  }
+})();
+
+// Load both public and member-only announcements
+fetch('announcments.txt')
+  .then(r => r.ok ? r.text() : Promise.reject(new Error('Announcements not found')))
+  .then(text => {
+    const list = document.getElementById('members-announcements');
+    const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+    const normalized = lines.map(l => {
+      // If wrapped with backticks, treat as members-only and strip the backticks
+      if (l.startsWith('`') && l.endsWith('`')) return l.slice(1, -1);
+      return l;
+    });
+    list.innerHTML = normalized.length ? normalized.map(l => `<li>${l}</li>`).join('') : '<li>No announcements right now</li>';
+  })
+  .catch(() => {
+    const list = document.getElementById('members-announcements');
+    if (list) list.innerHTML = '<li>No announcements</li>';
+  });
+
+// Back button
+document.getElementById('back-btn').addEventListener('click', () => {
+  window.location.href = 'index.html';
+});
+</script>
+</body>
+</html>
