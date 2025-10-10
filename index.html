@@ -75,10 +75,45 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
   z-index: 9999;
 }
 .fab:hover { filter: brightness(1.05); }
+/* Button scale-up animation */
+.btn, .fab, .calendar-btn {
+  transition: transform 0.18s cubic-bezier(.4,0,.2,1), box-shadow 0.18s cubic-bezier(.4,0,.2,1);
+}
+.btn:hover, .fab:hover, .calendar-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 14px 32px -16px var(--blue-600);
+}
+.calendar-btn {
+  display: inline-block;
+  padding: 9px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  background: var(--blue-500);
+  color: #fff;
+  border: none;
+  font-size: 0.98em;
+  text-decoration: none;
+  box-shadow: 0 6px 18px -10px var(--blue-500);
+  margin-top: 0.5em;
+  cursor: pointer;
+}
+.calendar-btn:active {
+  transform: scale(0.97);
+}
+/* Fade transition for page switching */
+.fade-section {
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(.4,0,.2,1);
+  pointer-events: none;
+}
+.fade-section.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
 </style>
 </head>
 <body>
-<section class="hero">
+<section class="hero fade-section is-visible" id="main-hero">
   <div class="container hero-wrap">
     <div>
       <div class="brand">
@@ -88,12 +123,63 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
       <h1>Our Purpose</h1>
       <p class="lead">UTS Rocketry is a team of innovators and engineers. Our mission is to push the limits of student engineering by designing and launching rockets that bring real-world aerospace experience to UTS.</p>
       <div class="cta">
-  <a class="btn primary" href="https://forms.gle/ZLsutHSr3SwCMDv49" target="_blank" rel="noopener">Join UTS Rocketry</a>
-  <a class="btn ghost" role="button" style="text-decoration:underline;margin-left:8px;" href="#announcements">Announcements</a>
-    </div>
+        <a class="btn primary" href="https://forms.gle/ZLsutHSr3SwCMDv49" target="_blank" rel="noopener">Join UTS Rocketry</a>
+        <a class="btn ghost" role="button" style="text-decoration:underline;margin-left:8px;" href="#announcements">Announcements</a>
+      </div>
     </div>
     <div class="card" role="img" aria-label="UTS Rocketry mark">
       <img src="assets/RocketryLogoLight.png" alt="UTS Rocketry Logo" class="logo-float" style="height:320px;display:block;margin:auto;">
+    </div>
+  </div>
+</section>
+
+<!-- Members Portal Section (hidden by default) -->
+<section class="hero fade-section" id="members-hero">
+  <div class="container hero-wrap">
+    <div>
+      <div class="brand">
+        <img src="assets/RocketryLogoLight.png" alt="UTS Rocketry Logo" style="height:58px;vertical-align:middle;">
+        <span style="font-size:2.1rem;font-weight:900;vertical-align:middle;">UTS Rocketry</span>
+      </div>
+      <h1 style="font-size:clamp(34px,5vw,56px);line-height:1.12;margin:0 0 12px;font-weight:900">Members Portal</h1>
+      <p class="lead">Welcome to the UTS Rocketry members portal. Access exclusive announcements and resources for team members.</p>
+    </div>
+    <div class="card" role="img" aria-label="UTS Rocketry Rocket Photo">
+      <img src="assets/RocketLaunching.png" alt="UTS Rocketry Rocket Photo" class="team-photo" style="margin-left:auto;margin-right:auto;display:block;">
+    </div>
+  </div>
+</section>
+
+<section id="members-announcements-section" class="fade-section">
+  <div class="container">
+    <div class="card" style="margin-top:18px">
+      <h2>Members Announcements</h2>
+      <ul class="clean" id="members-announcements"></ul>
+    </div>
+  </div>
+</section>
+
+<section id="members-calendar-section" class="fade-section" style="padding-top:0;">
+  <div class="container">
+    <div id="calendar" class="card" style="flex:1 1 350px;min-width:300px;">
+      <h2>Calendar</h2>
+      <iframe src="https://calendar.google.com/calendar/embed?src=c_afa571590d45f8b7148ae069df7cc04c6e04460a0d4b8ba48afbbb7ca5e38710%40group.calendar.google.com&ctz=America/Toronto&mode=week" style="border:0;width:100%;height:350px;" frameborder="0" scrolling="no"></iframe>
+      <div style="margin-top:0.5em;">
+  <a href="https://calendar.google.com/calendar/u/0?cid=Y19hZmE1NzE1OTBkNDVmOGI3MTQ4YWUwNjlkZjdjYzA0YzZlMDQ0NjBhMGQ0YjhiYTQ4YWZiYmI3Y2E1ZTM4NzEwQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20" target="_blank" rel="noopener" class="calendar-btn">Subscribe to Calendar</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="members-contact-section" class="fade-section">
+  <div class="container grid-2">
+    <div class="card reveal" style="grid-column: span 2;">
+      <h2 style="text-align:center;">Meet the Team</h2>
+      <div style="max-width:520px;width:100%;margin:auto;">
+        <img src="assets/ExecsPhoto.jpeg" alt="UTS Rocketry Team Photo" class="team-photo">
+        <p><strong>Execs:</strong> <a href="mailto:zhajoh@utschools.ca">Johnathan Zhang</a> · <a href="mailto:lunoi@utschools.ca">Oisin Lundon</a> · <a href="mailto:llma@utschools.ca">Mattias Libesman‑Lee</a></p>
+        <p><strong>Staff Supervisor:</strong> <a href="mailto:thomas.nachshen@utschools.ca">Mr. Nachshen</a></p>
+      </div>
     </div>
   </div>
 </section>
@@ -194,7 +280,7 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
   <h2>Calendar</h2>
   <iframe src="https://calendar.google.com/calendar/embed?src=c_afa571590d45f8b7148ae069df7cc04c6e04460a0d4b8ba48afbbb7ca5e38710%40group.calendar.google.com&ctz=America/Toronto&mode=week" style="border:0;width:100%;height:350px;" frameborder="0" scrolling="no"></iframe>
       <div style="margin-top:0.5em;">
-        <a href="https://calendar.google.com/calendar/u/0?cid=Y19hZmE1NzE1OTBkNDVmOGI3MTQ4YWUwNjlkZjdjYzA0YzZlMDQ0NjBhMGQ0YjhiYTQ4YWZiYmI3Y2E1ZTM4NzEwQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20" target="_blank" rel="noopener" style="font-size:0.95em;text-decoration:underline;">Subscribe to Calendar</a>
+        <a href="https://calendar.google.com/calendar/u/0?cid=Y19hZmE1NzE1OTBkNDVmOGI3MTQ4YWUwNjlkZjdjYzA0YzZlMDQ0NjBhMGQ0YjhiYTQ4YWZiYmI3Y2E1ZTM4NzEwQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20" target="_blank" rel="noopener" class="calendar-btn">Subscribe to Calendar</a>
       </div>
     </div>
   </div>
@@ -214,8 +300,10 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
 </section>
 
 <footer><div class="container">© 2025 UTS Rocketry · University of Toronto Schools</div></footer>
+</footer>
 
 <button class="fab" id="members-btn" aria-label="Open members portal">Members Portal</button>
+<button class="fab" id="back-btn" aria-label="Back to main page" style="display:none;">Back to Site</button>
 
 <script>
 for (const a of document.querySelectorAll('a[href^="#"]')){
@@ -228,25 +316,126 @@ for (const a of document.querySelectorAll('a[href^="#"]')){
 const io = new IntersectionObserver((entries)=>{entries.forEach(en=>{ if(en.isIntersecting) en.target.classList.add('is-in'); })}, {threshold:.2});
 document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
 
-// Gate to members portal with a lightweight password prompt
-(function(){
-  const KEY = 'uts-members-auth';
-  const PASS = 'ILuvRocketry';
-  const btn = document.getElementById('members-btn');
-  if (!btn) return;
-  btn.addEventListener('click', () => {
-    // If already authenticated this session, go straight in
-    if (sessionStorage.getItem(KEY) === '1') {
-      window.location.href = 'members.html';
-      return;
+// Show/hide main and members portal sections
+function fadeSwitch(showIds, hideIds) {
+  // Hide all fade sections
+  for (const id of hideIds) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.classList.remove('is-visible');
+      setTimeout(() => { el.style.display = 'none'; }, 600);
     }
-    const input = window.prompt('Enter members password:');
-    if (input === PASS) {
-      sessionStorage.setItem(KEY, '1');
-      window.location.href = 'members.html';
+  }
+  // Show all fade sections
+  for (const id of showIds) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.style.display = '';
+      setTimeout(() => { el.classList.add('is-visible'); }, 10);
     }
+  }
+}
+function showMainPage() {
+  fadeSwitch([
+    'main-hero', 'project', 'skills', 'announcements-calendar', 'contact'
+  ], [
+    'members-hero', 'members-announcements-section', 'members-calendar-section', 'members-contact-section'
+  ]);
+  document.getElementById('members-btn').style.display = '';
+  document.getElementById('back-btn').style.display = 'none';
+}
+function showMembersPortal() {
+  fadeSwitch([
+    'members-hero', 'members-announcements-section', 'members-calendar-section', 'members-contact-section'
+  ], [
+    'main-hero', 'project', 'skills', 'announcements-calendar', 'contact'
+  ]);
+  document.getElementById('members-btn').style.display = 'none';
+  document.getElementById('back-btn').style.display = '';
+}
+
+// Password gating for members portal
+const KEY = 'uts-members-auth';
+const PASS = 'ILuvRocketry';
+document.getElementById('members-btn').addEventListener('click', () => {
+  if (sessionStorage.getItem(KEY) === '1') {
+    showMembersPortal();
+    return;
+  }
+  const input = window.prompt('Enter members password:');
+  if (input === PASS) {
+    sessionStorage.setItem(KEY, '1');
+    showMembersPortal();
+  }
+});
+document.getElementById('back-btn').addEventListener('click', () => {
+  showMainPage();
+});
+
+// Load public announcements for main page
+fetch('announcments.txt')
+  .then(r => r.ok ? r.text() : Promise.reject(new Error('Announcements not found')))
+  .then(text => {
+    const list = document.getElementById('announcements-list');
+    const publicLines = text
+      .split('\n')
+      .map(l => l.trim())
+      .filter(Boolean)
+      .filter(l => !(l.startsWith('`') && l.endsWith('`')));
+    list.innerHTML = publicLines.length
+      ? publicLines.map(line => `<li>${line}</li>`).join('')
+      : '<li>No announcements</li>';
+  })
+  .catch(() => {
+    const list = document.getElementById('announcements-list');
+    if (list) list.innerHTML = '<li>No announcements right now</li>';
   });
-})();
+
+// Load both public and member-only announcements for members portal
+fetch('announcments.txt')
+  .then(r => r.ok ? r.text() : Promise.reject(new Error('Announcements not found')))
+  .then(text => {
+    const list = document.getElementById('members-announcements');
+    const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+    const normalized = lines.map(l => {
+      // If wrapped with backticks, treat as members-only and strip the backticks
+      if (l.startsWith('`') && l.endsWith('`')) return l.slice(1, -1);
+      return l;
+    });
+    list.innerHTML = normalized.length ? normalized.map(l => `<li>${l}</li>`).join('') : '<li>No announcements right now</li>';
+  })
+  .catch(() => {
+    const list = document.getElementById('members-announcements');
+    if (list) list.innerHTML = '<li>No announcements</li>';
+  });
+
+// Fix: Always show main page fade sections on initial load
+window.addEventListener('DOMContentLoaded', function() {
+  if (sessionStorage.getItem(KEY) === '1') {
+    showMembersPortal();
+  } else {
+    // Ensure all main fade sections are visible
+    [
+      'main-hero', 'project', 'skills', 'announcements-calendar', 'contact'
+    ].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.style.display = '';
+        el.classList.add('is-visible');
+      }
+    });
+    // Hide all members fade sections
+    [
+      'members-hero', 'members-announcements-section', 'members-calendar-section', 'members-contact-section'
+    ].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.style.display = 'none';
+        el.classList.remove('is-visible');
+      }
+    });
+  }
+});
 </script>
 </body>
 </html>
