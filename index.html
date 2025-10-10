@@ -251,26 +251,6 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
       <h2>Announcements</h2>
       <!-- To add, edit, or remove announcements, simply update the list below -->
       <ul class="clean" id="announcements-list"></ul>
-      <script>
-        // Load ONLY public announcements (exclude lines wrapped in backticks `...`)
-        fetch('announcments.txt')
-          .then(r => r.ok ? r.text() : Promise.reject(new Error('Announcements not found')))
-          .then(text => {
-            const list = document.getElementById('announcements-list');
-            const publicLines = text
-              .split('\n')
-              .map(l => l.trim())
-              .filter(Boolean)
-              .filter(l => !(l.startsWith('`') && l.endsWith('`')));
-            list.innerHTML = publicLines.length
-              ? publicLines.map(line => `<li>${line}</li>`).join('')
-              : '<li>No announcements</li>';
-          })
-          .catch(() => {
-            const list = document.getElementById('announcements-list');
-            if (list) list.innerHTML = '<li>No announcements right now</li>';
-          });
-      </script>
     </div>
     <!-- Calendar Section -->
     <div id="calendar" class="card reveal" style="flex:1 1 350px;min-width:300px;">
@@ -405,6 +385,7 @@ document.getElementById('back-btn').addEventListener('click', () => {
 
 // Helper: convert URLs in text to clickable links
 function linkify(text) {
+  // Simpler regex: match any http(s) URL
   const urlRegex = /(https?:\/\/[^\s]+)/g;
   return text.replace(urlRegex, url => `<a href="${url}" target="_blank" rel="noopener">${url}</a>`);
 }
