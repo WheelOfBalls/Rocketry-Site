@@ -414,13 +414,18 @@ window.addEventListener('DOMContentLoaded', function() {
   if (sessionStorage.getItem(KEY) === '1') {
     showMembersPortal();
   } else {
-    // Ensure all main fade sections are visible
-    [
-      'main-hero', 'project', 'skills', 'announcements-calendar', 'contact'
-    ].forEach(id => {
-      const el = document.getElementById(id);
+    // Only main-hero uses fade-section animation
+    var mainHero = document.getElementById('main-hero');
+    if (mainHero) {
+      mainHero.style.display = '';
+      mainHero.classList.add('is-visible');
+    }
+    // Ensure all other main sections are visible (no fade)
+    ['project', 'skills', 'announcements-calendar', 'contact'].forEach(id => {
+      var el = document.getElementById(id);
       if (el) {
         el.style.display = '';
+        el.classList.remove('fade-section');
         el.classList.add('is-visible');
       }
     });
@@ -428,7 +433,7 @@ window.addEventListener('DOMContentLoaded', function() {
     [
       'members-hero', 'members-announcements-section', 'members-calendar-section', 'members-contact-section'
     ].forEach(id => {
-      const el = document.getElementById(id);
+      var el = document.getElementById(id);
       if (el) {
         el.style.display = 'none';
         el.classList.remove('is-visible');
