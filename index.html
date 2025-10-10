@@ -359,6 +359,13 @@ document.getElementById('back-btn').addEventListener('click', () => {
   showMainPage();
 });
 
+
+// Helper: convert URLs in text to clickable links
+function linkify(text) {
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  return text.replace(urlRegex, url => `<a href="${url}" target="_blank" rel="noopener">${url}</a>`);
+}
+
 // Load public announcements for main page
 fetch('announcments.txt')
   .then(r => r.ok ? r.text() : Promise.reject(new Error('Announcements not found')))
@@ -370,7 +377,7 @@ fetch('announcments.txt')
       .filter(Boolean)
       .filter(l => !(l.startsWith('`') && l.endsWith('`')));
     list.innerHTML = publicLines.length
-      ? publicLines.map(line => `<li>${line}</li>`).join('')
+      ? publicLines.map(line => `<li>${linkify(line)}</li>`).join('')
       : '<li>No announcements</li>';
   })
   .catch(() => {
@@ -389,7 +396,7 @@ fetch('announcments.txt')
       if (l.startsWith('`') && l.endsWith('`')) return l.slice(1, -1);
       return l;
     });
-    list.innerHTML = normalized.length ? normalized.map(l => `<li>${l}</li>`).join('') : '<li>No announcements right now</li>';
+    list.innerHTML = normalized.length ? normalized.map(l => `<li>${linkify(l)}</li>`).join('') : '<li>No announcements right now</li>';
   })
   .catch(() => {
     const list = document.getElementById('members-announcements');
