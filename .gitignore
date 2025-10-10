@@ -1,2 +1,4 @@
-﻿/OneDrive/
+﻿# Prevent local announcements file from being tracked by git
+announcments.txt
+/OneDrive/
 /*.log
