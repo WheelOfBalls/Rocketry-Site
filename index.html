@@ -60,6 +60,7 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
   margin-right: auto;
 }
 /* Floating action button (bottom-right) */
+/* Main action button animation */
 .fab {
   position: fixed;
   right: 20px;
@@ -73,47 +74,43 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
   box-shadow: 0 12px 28px -14px var(--blue-600);
   cursor: pointer;
   z-index: 9999;
+  transition: transform 0.18s cubic-bezier(.4,1.4,.6,1.0), filter 0.18s;
 }
-.fab:hover { filter: brightness(1.05); }
-/* Button scale-up animation */
-.btn, .fab, .calendar-btn {
-  transition: transform 0.18s cubic-bezier(.4,0,.2,1), box-shadow 0.18s cubic-bezier(.4,0,.2,1);
+.fab:hover {
+  filter: brightness(1.05);
+  transform: scale(1.12);
 }
-.btn:hover, .fab:hover, .calendar-btn:hover {
+
+.btn, .calendar-btn {
+  transition: transform 0.18s cubic-bezier(.4,1.4,.6,1.0), box-shadow 0.18s;
+}
+.btn:hover {
   transform: scale(1.08);
-  box-shadow: 0 14px 32px -16px var(--blue-600);
+  box-shadow: 0 16px 34px -16px var(--blue-600);
 }
 .calendar-btn {
   display: inline-block;
-  padding: 9px 16px;
-  border-radius: 10px;
-  font-weight: 700;
-  background: var(--blue-500);
+  background: var(--blue-600);
   color: #fff;
   border: none;
+  border-radius: 12px;
+  padding: 8px 16px;
+  font-weight: 700;
   font-size: 0.98em;
-  text-decoration: none;
-  box-shadow: 0 6px 18px -10px var(--blue-500);
   margin-top: 0.5em;
+  box-shadow: 0 6px 18px -8px var(--blue-600);
   cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.18s cubic-bezier(.4,1.4,.6,1.0), box-shadow 0.18s;
 }
-.calendar-btn:active {
-  transform: scale(0.97);
-}
-/* Fade transition for page switching */
-.fade-section {
-  opacity: 0;
-  transition: opacity 0.6s cubic-bezier(.4,0,.2,1);
-  pointer-events: none;
-}
-.fade-section.is-visible {
-  opacity: 1;
-  pointer-events: auto;
+.calendar-btn:hover {
+  transform: scale(1.09);
+  box-shadow: 0 12px 28px -14px var(--blue-600);
 }
 </style>
 </head>
 <body>
-<section class="hero fade-section" id="main-hero">
+<section class="hero" id="main-hero">
   <div class="container hero-wrap">
     <div>
       <div class="brand">
@@ -134,7 +131,7 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
 </section>
 
 <!-- Members Portal Section (hidden by default) -->
-<section class="hero fade-section" id="members-hero">
+<section class="hero" id="members-hero" style="display:none;">
   <div class="container hero-wrap">
     <div>
       <div class="brand">
@@ -150,7 +147,7 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
   </div>
 </section>
 
-<section id="members-announcements-section" class="fade-section">
+<section id="members-announcements-section" style="display:none;">
   <div class="container">
     <div class="card" style="margin-top:18px">
       <h2>Members Announcements</h2>
@@ -159,7 +156,7 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
   </div>
 </section>
 
-<section id="members-calendar-section" class="fade-section" style="padding-top:0;">
+<section id="members-calendar-section" style="display:none;padding-top:0;">
   <div class="container">
     <div id="calendar" class="card" style="flex:1 1 350px;min-width:300px;">
       <h2>Calendar</h2>
@@ -171,7 +168,7 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
   </div>
 </section>
 
-<section id="members-contact-section" class="fade-section">
+<section id="members-contact-section" style="display:none;">
   <div class="container grid-2">
     <div class="card reveal" style="grid-column: span 2;">
       <h2 style="text-align:center;">Meet the Team</h2>
@@ -280,7 +277,7 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
   <h2>Calendar</h2>
   <iframe src="https://calendar.google.com/calendar/embed?src=c_afa571590d45f8b7148ae069df7cc04c6e04460a0d4b8ba48afbbb7ca5e38710%40group.calendar.google.com&ctz=America/Toronto&mode=week" style="border:0;width:100%;height:350px;" frameborder="0" scrolling="no"></iframe>
       <div style="margin-top:0.5em;">
-        <a href="https://calendar.google.com/calendar/u/0?cid=Y19hZmE1NzE1OTBkNDVmOGI3MTQ4YWUwNjlkZjdjYzA0YzZlMDQ0NjBhMGQ0YjhiYTQ4YWZiYmI3Y2E1ZTM4NzEwQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20" target="_blank" rel="noopener" style="font-size:0.95em;text-decoration:underline;">Subscribe to Calendar</a>
+  <a href="https://calendar.google.com/calendar/u/0?cid=Y19hZmE1NzE1OTBkNDVmOGI3MTQ4YWUwNjlkZjdjYzA0YzZlMDQ0NjBhMGQ0YjhiYTQ4YWZiYmI3Y2E1ZTM4NzEwQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20" target="_blank" rel="noopener" class="calendar-btn">Subscribe to Calendar</a>
       </div>
     </div>
   </div>
@@ -317,39 +314,29 @@ const io = new IntersectionObserver((entries)=>{entries.forEach(en=>{ if(en.isIn
 document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
 
 // Show/hide main and members portal sections
-function fadeSwitch(showIds, hideIds) {
-  // Hide all fade sections
-  for (const id of hideIds) {
-    const el = document.getElementById(id);
-    if (el) {
-      el.classList.remove('is-visible');
-      setTimeout(() => { el.style.display = 'none'; }, 600);
-    }
-  }
-  // Show all fade sections
-  for (const id of showIds) {
-    const el = document.getElementById(id);
-    if (el) {
-      el.style.display = '';
-      setTimeout(() => { el.classList.add('is-visible'); }, 10);
-    }
-  }
-}
 function showMainPage() {
-  fadeSwitch([
-    'main-hero', 'project', 'skills', 'announcements-calendar', 'contact'
-  ], [
-    'members-hero', 'members-announcements-section', 'members-calendar-section', 'members-contact-section'
-  ]);
+  document.getElementById('main-hero').style.display = '';
+  document.getElementById('project').style.display = '';
+  document.getElementById('skills').style.display = '';
+  document.getElementById('announcements-calendar').style.display = '';
+  document.getElementById('contact').style.display = '';
+  document.getElementById('members-hero').style.display = 'none';
+  document.getElementById('members-announcements-section').style.display = 'none';
+  document.getElementById('members-calendar-section').style.display = 'none';
+  document.getElementById('members-contact-section').style.display = 'none';
   document.getElementById('members-btn').style.display = '';
   document.getElementById('back-btn').style.display = 'none';
 }
 function showMembersPortal() {
-  fadeSwitch([
-    'members-hero', 'members-announcements-section', 'members-calendar-section', 'members-contact-section'
-  ], [
-    'main-hero', 'project', 'skills', 'announcements-calendar', 'contact'
-  ]);
+  document.getElementById('main-hero').style.display = 'none';
+  document.getElementById('project').style.display = 'none';
+  document.getElementById('skills').style.display = 'none';
+  document.getElementById('announcements-calendar').style.display = 'none';
+  document.getElementById('contact').style.display = 'none';
+  document.getElementById('members-hero').style.display = '';
+  document.getElementById('members-announcements-section').style.display = '';
+  document.getElementById('members-calendar-section').style.display = '';
+  document.getElementById('members-contact-section').style.display = '';
   document.getElementById('members-btn').style.display = 'none';
   document.getElementById('back-btn').style.display = '';
 }
@@ -409,32 +396,10 @@ fetch('announcments.txt')
     if (list) list.innerHTML = '<li>No announcements</li>';
   });
 
-// Fix: Always show main page fade sections on initial load
-window.addEventListener('DOMContentLoaded', function() {
-  if (sessionStorage.getItem(KEY) === '1') {
-    showMembersPortal();
-  } else {
-    // Show all main sections with fade-section and is-visible
-    ['main-hero', 'project', 'skills', 'announcements-calendar', 'contact'].forEach(id => {
-      var el = document.getElementById(id);
-      if (el) {
-        el.style.display = '';
-        el.classList.add('fade-section');
-        el.classList.add('is-visible');
-      }
-    });
-    // Hide all members fade sections
-    [
-      'members-hero', 'members-announcements-section', 'members-calendar-section', 'members-contact-section'
-    ].forEach(id => {
-      var el = document.getElementById(id);
-      if (el) {
-        el.style.display = 'none';
-        el.classList.remove('is-visible');
-      }
-    });
-  }
-});
+// If already authenticated, show members portal on load (for reloads)
+if (sessionStorage.getItem(KEY) === '1') {
+  showMembersPortal();
+}
 </script>
 </body>
 </html>
