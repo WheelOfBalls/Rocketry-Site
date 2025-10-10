@@ -113,7 +113,7 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
 </style>
 </head>
 <body>
-<section class="hero fade-section is-visible" id="main-hero">
+<section class="hero fade-section" id="main-hero">
   <div class="container hero-wrap">
     <div>
       <div class="brand">
@@ -409,10 +409,33 @@ fetch('announcments.txt')
     if (list) list.innerHTML = '<li>No announcements</li>';
   });
 
-// If already authenticated, show members portal on load (for reloads)
-if (sessionStorage.getItem(KEY) === '1') {
-  showMembersPortal();
-}
+// Fix: Always show main page fade sections on initial load
+window.addEventListener('DOMContentLoaded', function() {
+  if (sessionStorage.getItem(KEY) === '1') {
+    showMembersPortal();
+  } else {
+    // Ensure all main fade sections are visible
+    [
+      'main-hero', 'project', 'skills', 'announcements-calendar', 'contact'
+    ].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.style.display = '';
+        el.classList.add('is-visible');
+      }
+    });
+    // Hide all members fade sections
+    [
+      'members-hero', 'members-announcements-section', 'members-calendar-section', 'members-contact-section'
+    ].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.style.display = 'none';
+        el.classList.remove('is-visible');
+      }
+    });
+  }
+});
 </script>
 </body>
 </html>
