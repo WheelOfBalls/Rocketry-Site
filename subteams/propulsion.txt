@@ -1,4 +1,3 @@
-Propulsion
 "The power that gets us off the ground."
 
 The heart of the rocket focused on solid motor selection and thrust.
@@ -8,4 +7,5 @@ Testing different motor options in OpenRocket and assisting in static firing tes
 Collaborates closely with Airframe to ensure the structure supports the chosen motor.
 
 Key Skills: Simulation, physics, thrust analysis, safety procedures.
+
 Mission Goal: Choose and validate the perfect solid motor for a safe and high-performing flight.
