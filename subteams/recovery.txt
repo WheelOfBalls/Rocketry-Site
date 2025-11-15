@@ -1,4 +1,3 @@
-Recovery
 "What goes up must come down... safely."
 
 Responsible for bringing the rocket back in one piece every flight.
@@ -7,4 +6,5 @@ Calculating descent rates to balance gentle landings with manageable drift.
 Ensuring the rocket stays reusable, reliable, and safe through lots of testing.
 
 Key Skills: Mechanical design, testing, reliability, recovery dynamics.
+
 Mission Goal: Design a system that deploys the parachute reliably every time.
