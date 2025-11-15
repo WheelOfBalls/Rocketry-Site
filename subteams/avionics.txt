@@ -1,4 +1,3 @@
-Avionics & Electronics
 "The brain of the rocket."
 
 Controls and monitors everything happening during flight so we know how high we go and where we land.
@@ -6,4 +5,5 @@ Working with altimeters, GPS modules, cameras, wiring, sensors, and microcontrol
 Connecting payload and recovery systems to ensure an autonomous and safe rocket.
 
 Key Skills: Electronics, sensors, programming, testing.
+
 Mission Goal: Collect and transmit reliable flight data to verify rocket success.
