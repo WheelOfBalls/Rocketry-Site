@@ -1,4 +1,5 @@
-﻿# Prevent local announcements file from being tracked by git
-announcments.txt
+﻿announcments.txt
 /OneDrive/
 /*.log
+subteams/
+mission.txt
