@@ -1,4 +1,3 @@
-Payload
 "The reason why we're flying."
 
 Payload defines the mission itself, from cameras to data loggers to experimental sensors.
@@ -6,4 +5,5 @@ Working on the payload-to-rocket connections so it fits, stays protected, and co
 Ensuring it works with Avionics for power and with Airframe for mounting while staying creative about experiments.
 
 Key Skills: Creativity, design integration, data collection, mechanical mounting.
+
 Mission Goal: Build a payload that records flight data and captures video, proving the mission's success.
