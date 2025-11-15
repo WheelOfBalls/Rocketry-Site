@@ -1,0 +1,10 @@
+Airframe & Structure
+"The body that holds it all together."
+
+The main structure of the rocket that everything else depends on.
+Designing body tubes, fins, and the nose cone optimized for low drag and high strength.
+Making sure every other system fits together perfectly through tight mechanical integration.
+Working with CAD and 3D printing to produce flight-ready parts that survive testing.
+
+Key Skills: CAD modeling, material selection, structural design, 3D printing.
+Mission Goal: Build a lightweight but durable rocket body capable of handling 10-20g of acceleration with a safe recovery.

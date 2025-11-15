@@ -14,6 +14,7 @@
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink-900);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+body.has-topbar{padding-top:90px}
 a{color:var(--blue-500);text-decoration:none}
 a:hover{text-decoration:underline}
 .container{max-width:1100px;margin:auto;padding:0 18px}
@@ -59,6 +60,34 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
   margin-left: auto;
   margin-right: auto;
 }
+/* Subteam layout */
+.subteam-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+@media (max-width:900px){ .subteam-grid{grid-template-columns:1fr} }
+.drive-btn{display:inline-block;background:var(--blue-500);color:#fff;padding:10px 14px;border-radius:10px;font-weight:800;text-decoration:none;transition:transform .18s cubic-bezier(.4,1.4,.6,1.0), box-shadow .18s}
+.drive-btn:hover{transform:scale(1.08);box-shadow:0 12px 28px -16px var(--blue-600)}
+.subteam-detail-card{margin-top:18px}
+.subteam-detail-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.subteam-detail-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.subteam-content{margin-top:16px;color:var(--ink-700)}
+.subteam-content p{margin-top:0}
+.mission-section{padding:26px 0 10px}
+.mission-card{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.mission-card img{max-width:160px;width:100%;height:auto}
+.mission-text{flex:1;min-width:260px}
+.mission-text h2{margin:0 0 8px;font-weight:900}
+.mission-text p{margin:0 0 8px}
+.mission-info-card{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.mission-info-card img{max-width:220px;width:100%;height:auto;border-radius:18px;box-shadow:0 12px 30px -12px rgba(10,108,255,.55);background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.6),transparent)}
+.mission-summary{flex:1;min-width:260px}
+.mission-summary-header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.mission-summary h2{margin:0;font-size:clamp(24px,3vw,36px)}
+.mission-summary p{margin:0 0 10px}
+.mission-summary-body{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start}
+.mission-summary-text{flex:1;min-width:220px}
+.mission-timeline{flex:1;min-width:240px;margin-top:0}
+.mission-timeline img{width:100%;max-width:520px;border-radius:12px;box-shadow:0 8px 24px -12px rgba(10,108,255,.45)}
+.subteam-content-grid{display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;margin-top:16px}
+.subteam-detail-photo{max-width:320px;width:100%;border-radius:14px;box-shadow:0 12px 30px -18px rgba(10,108,255,.5);display:none}
 /* Floating action button (bottom-right) */
 /* Main action button animation */
 .fab {
@@ -107,9 +136,28 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
   transform: scale(1.09);
   box-shadow: 0 12px 28px -14px var(--blue-600);
 }
+
+/* Members topbar (floating rounded nav visible only in members area) */
+.members-topbar{position:fixed;top:14px;left:50%;transform:translateX(-50%);background:var(--bg-elev);padding:8px;border-radius:999px;box-shadow:0 12px 36px -18px rgba(10,108,255,0.28);z-index:99998;display:none}
+.members-topbar-inner{display:flex;gap:8px;align-items:center}
+.members-topbar .topbar-item{background:transparent;border:none;padding:8px 12px;border-radius:999px;cursor:pointer;font-weight:800;color:var(--ink-900);transition:transform .18s cubic-bezier(.4,1.4,.6,1.0), box-shadow .18s}
+.members-topbar .topbar-item:hover{transform:scale(1.08);box-shadow:0 12px 26px -16px var(--blue-600)}
+.members-topbar .topbar-item.active{background:var(--blue-600);color:#fff;transform:scale(1.04)}
+@media (max-width:640px){.members-topbar{left:8px;right:8px;transform:none;width:auto;padding:6px 8px}.members-topbar-inner{overflow:auto;white-space:nowrap}body.has-topbar{padding-top:120px}}
 </style>
 </head>
 <body>
+<!-- Members topbar (only visible inside members portal and subteam pages) -->
+<nav id="members-topbar" class="members-topbar" aria-label="Members navigation">
+  <div class="members-topbar-inner">
+    <button class="topbar-item" data-target="members">Members Portal</button>
+    <button class="topbar-item" data-target="airframe">Airframe &amp; Structure</button>
+    <button class="topbar-item" data-target="propulsion">Propulsion</button>
+    <button class="topbar-item" data-target="recovery">Recovery</button>
+    <button class="topbar-item" data-target="payload">Payload</button>
+    <button class="topbar-item" data-target="avionics">Avionics &amp; Electronics</button>
+  </div>
+</nav>
 <section class="hero" id="main-hero">
   <div class="container hero-wrap">
     <div>
@@ -130,6 +178,18 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
   </div>
 </section>
 
+<section id="mission-highlight" class="mission-section">
+  <div class="container">
+    <div class="card mission-card">
+      <img src="assets/UTS-1_Ascension_Insignia_PNG.png" alt="UTS Mission Insignia" class="mission-image">
+      <div class="mission-text">
+        <h2>UTS-1 Ascension</h2>
+        <div id="mission-description">Loading mission overview...</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Members Portal Section (hidden by default) -->
 <section class="hero" id="members-hero" style="display:none;">
   <div class="container hero-wrap">
@@ -143,6 +203,27 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
     </div>
     <div class="card" role="img" aria-label="UTS Rocketry Rocket Photo">
       <img src="assets/RocketLaunching.png" alt="UTS Rocketry Rocket Photo" class="team-photo" style="margin-left:auto;margin-right:auto;display:block;">
+    </div>
+  </div>
+</section>
+
+<section id="members-mission-info" class="portal-section" style="display:none;">
+  <div class="container">
+    <div class="card mission-info-card">
+      <img src="assets/UTS-1_Ascension_Insignia_PNG.png" alt="UTS-1 Ascension Insignia">
+      <div class="mission-summary">
+        <div class="mission-summary-header">
+          <h2>UTS-1 Ascension</h2>
+          <a class="drive-btn" href="https://drive.google.com/drive/folders/1oP5-8z8HXh94rHKjprO0mPFziK5m-kGn?usp=sharing" target="_blank" rel="noopener">Mission Folder</a>
+        </div>
+        <div class="mission-summary-body">
+          <div class="mission-summary-text" id="members-mission-summary">Summary of mission and goals.</div>
+          <div class="mission-timeline">
+            <h3>Mission Timeline</h3>
+            <img src="assets/Ascension%20Timeline.png" alt="UTS-1 Ascension Timeline" class="mission-timeline-image">
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -176,6 +257,25 @@ footer{padding:28px 0;border-top:1px solid color-mix(in oklab,var(--ink-500) 20%
         <img src="assets/ExecsPhoto.jpeg" alt="UTS Rocketry Team Photo" class="team-photo">
         <p><strong>Execs:</strong> <a href="mailto:zhajoh@utschools.ca">Johnathan Zhang</a> · <a href="mailto:lunoi@utschools.ca">Oisin Lundon</a> · <a href="mailto:llma@utschools.ca">Mattias Libesman‑Lee</a></p>
         <p><strong>Staff Supervisor:</strong> <a href="mailto:thomas.nachshen@utschools.ca">Mr. Nachshen</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="members-subteam-detail" style="display:none;">
+  <div class="container">
+    <div class="card subteam-detail-card">
+      <div class="subteam-detail-head">
+        <h2 id="subteam-detail-title" style="margin:0;">Members Portal</h2>
+        <div class="subteam-detail-actions">
+          <a id="subteam-detail-drive" class="drive-btn" href="#" target="_blank" rel="noopener" style="display:none;">Folder</a>
+        </div>
+      </div>
+      <div class="subteam-content-grid">
+        <img id="subteam-detail-image" class="subteam-detail-photo" src="" alt="Subteam visual" style="display:none;">
+        <div class="subteam-content" id="subteam-detail-content">
+          <p>Select a subteam from the floating bar above to load its details.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -307,6 +407,30 @@ for (const a of document.querySelectorAll('a[href^="#"]')){
 const io = new IntersectionObserver((entries)=>{entries.forEach(en=>{ if(en.isIntersecting) en.target.classList.add('is-in'); })}, {threshold:.2});
 document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
 
+const memberOverviewIds = ['members-hero','members-mission-info','members-announcements-section','members-calendar-section','members-contact-section'];
+const subteamDetailSection = document.getElementById('members-subteam-detail');
+const subteamDetailTitle = document.getElementById('subteam-detail-title');
+const subteamDetailContent = document.getElementById('subteam-detail-content');
+const subteamDetailDrive = document.getElementById('subteam-detail-drive');
+const subteamDetailImage = document.getElementById('subteam-detail-image');
+const missionHighlightSection = document.getElementById('mission-highlight');
+const missionSummaryEl = document.getElementById('members-mission-summary');
+
+const subteamMeta = {
+  airframe: { title: 'Airframe & Structure', file: 'subteams/airframe.txt', drive: 'https://drive.google.com/drive/folders/1zbsAUug3qgkl2ZO4NNdr3jSOXOj2PUOx?usp=sharing', image: 'assets/Ascension%20Structure.png' },
+  propulsion: { title: 'Propulsion', file: 'subteams/propulsion.txt', drive: 'https://drive.google.com/drive/folders/1mVWVRmwIK9wUXQAkmsFCMyw_RuaJeSSD?usp=sharing', image: 'assets/Ascension%20Propulsion.png' },
+  recovery: { title: 'Recovery', file: 'subteams/recovery.txt', drive: 'https://drive.google.com/drive/folders/1qNLYnXMIF5mPo5r_mWvnrqy5Bd_J5_s_?usp=sharing', image: 'assets/Ascension%20Recovery.png' },
+  payload: { title: 'Payload', file: 'subteams/payload.txt', drive: 'https://drive.google.com/drive/folders/1_4oAQ3Cpfb2av9ywwG58SUxS1xPAfx5l?usp=sharing', image: 'assets/Ascension%20Payload.png' },
+  avionics: { title: 'Avionics & Electronics', file: 'subteams/avionics.txt', drive: 'https://drive.google.com/drive/folders/1aFLbDr6QvdL4zBIiKESB8ivaBqPUNW3D?usp=sharing', image: 'assets/Ascension%20Avionics.png' }
+};
+
+function toggleMembersOverview(show){
+  memberOverviewIds.forEach(id=>{
+    const el = document.getElementById(id);
+    if (el) el.style.display = show ? '' : 'none';
+  });
+}
+
 // Show/hide main and members portal sections
 function showMainPage() {
   document.getElementById('main-hero').style.display = '';
@@ -314,12 +438,12 @@ function showMainPage() {
   document.getElementById('skills').style.display = '';
   document.getElementById('announcements-calendar').style.display = '';
   document.getElementById('contact').style.display = '';
-  document.getElementById('members-hero').style.display = 'none';
-  document.getElementById('members-announcements-section').style.display = 'none';
-  document.getElementById('members-calendar-section').style.display = 'none';
-  document.getElementById('members-contact-section').style.display = 'none';
+  if (missionHighlightSection) missionHighlightSection.style.display = '';
+  toggleMembersOverview(false);
+  if (subteamDetailSection) subteamDetailSection.style.display = 'none';
   document.getElementById('members-btn').style.display = '';
   document.getElementById('back-btn').style.display = 'none';
+  hideTopbar();
 }
 function showMembersPortal() {
   document.getElementById('main-hero').style.display = 'none';
@@ -327,12 +451,12 @@ function showMembersPortal() {
   document.getElementById('skills').style.display = 'none';
   document.getElementById('announcements-calendar').style.display = 'none';
   document.getElementById('contact').style.display = 'none';
-  document.getElementById('members-hero').style.display = '';
-  document.getElementById('members-announcements-section').style.display = '';
-  document.getElementById('members-calendar-section').style.display = '';
-  document.getElementById('members-contact-section').style.display = '';
+  if (missionHighlightSection) missionHighlightSection.style.display = 'none';
+  toggleMembersOverview(true);
+  if (subteamDetailSection) subteamDetailSection.style.display = 'none';
   document.getElementById('members-btn').style.display = 'none';
   document.getElementById('back-btn').style.display = '';
+  showTopbar('members');
 }
 
 // Password gating for members portal (custom modal, works in Google Sites embeds)
@@ -426,6 +550,128 @@ fetch('announcments.txt')
     const list = document.getElementById('members-announcements');
     if (list) list.innerHTML = '<li>No announcements</li>';
   });
+
+// Load mission description from external text file
+fetch('mission.txt')
+  .then(r => r.ok ? r.text() : Promise.reject(new Error('Mission text not found')))
+  .then(text => {
+    const target = document.getElementById('mission-description');
+    const safe = escapeHTML(text.trim()).replace(/\n\n+/g,'</p><p>').replace(/\n/g,'<br>');
+    if (target) target.innerHTML = '<p>' + linkify(safe) + '</p>';
+    if (missionSummaryEl) missionSummaryEl.innerHTML = '<p>' + linkify(safe) + '</p>';
+  })
+  .catch(() => {
+    const target = document.getElementById('mission-description');
+    if (target) target.textContent = 'Mission details coming soon.';
+    if (missionSummaryEl) missionSummaryEl.innerHTML = '<p>Summary of mission and goals.</p>';
+  });
+
+function showSubteamDetail(id){
+  if (!subteamDetailSection || !subteamDetailContent || !subteamDetailTitle) return;
+  const meta = subteamMeta[id];
+  if (!meta) return;
+  document.getElementById('main-hero').style.display = 'none';
+  document.getElementById('project').style.display = 'none';
+  document.getElementById('skills').style.display = 'none';
+  document.getElementById('announcements-calendar').style.display = 'none';
+  document.getElementById('contact').style.display = 'none';
+  toggleMembersOverview(false);
+  subteamDetailSection.style.display = '';
+  subteamDetailTitle.textContent = meta.title;
+  if (subteamDetailDrive){
+    if (meta.drive){
+      subteamDetailDrive.href = meta.drive;
+      subteamDetailDrive.textContent = `${meta.title || 'Subteam'} Folder`;
+      subteamDetailDrive.style.display = '';
+    } else {
+      subteamDetailDrive.style.display = 'none';
+    }
+  }
+  if (subteamDetailImage){
+    if (meta.image){
+      subteamDetailImage.src = meta.image;
+      subteamDetailImage.alt = meta.title + ' visual';
+      subteamDetailImage.style.display = '';
+    } else {
+      subteamDetailImage.style.display = 'none';
+    }
+  }
+  subteamDetailContent.innerHTML = '<p>Loading details...</p>';
+  loadSubteamDetails(meta.file);
+  showTopbar(id);
+}
+
+function loadSubteamDetails(path){
+  if (!path || !subteamDetailContent) return;
+  fetch(path).then(r=> r.ok ? r.text() : Promise.reject(new Error('not found')))
+    .then(text => {
+      const safe = escapeHTML(text).replace(/\n\n+/g,'</p><p>').replace(/\n/g,'<br>');
+      subteamDetailContent.innerHTML = '<p>' + linkify(safe) + '</p>';
+    }).catch(()=>{
+      subteamDetailContent.innerHTML = '<p>No details yet.</p>';
+    });
+}
+
+/* Topbar helpers */
+const topbar = document.getElementById('members-topbar');
+let activeTopbarTarget = 'members';
+function showTopbar(active){
+  if (!topbar) return;
+  activeTopbarTarget = active;
+  topbar.style.display = 'flex';
+  document.body.classList.add('has-topbar');
+  topbar.querySelectorAll('.topbar-item').forEach(b=> b.classList.toggle('active', b.dataset.target===active));
+}
+function hideTopbar(){
+  if (!topbar) return;
+  topbar.style.display = 'none';
+  document.body.classList.remove('has-topbar');
+}
+
+// topbar button handlers
+document.querySelectorAll('#members-topbar .topbar-item').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const t = btn.dataset.target;
+    if (t === 'members'){
+      showMembersPortal();
+    } else {
+      showSubteamDetail(t);
+    }
+  });
+});
+
+// Robust visibility check: if any members-area section is visible, ensure topbar is shown.
+function isAnyMembersSectionVisible(){
+  const ids = memberOverviewIds.concat(['members-subteam-detail']);
+  for (const id of ids){
+    const el = document.getElementById(id);
+    if (!el) continue;
+    const style = window.getComputedStyle(el);
+    if (style && style.display !== 'none' && style.visibility !== 'hidden' && el.offsetParent !== null) return true;
+  }
+  return false;
+}
+
+function updateTopbarVisibility(){
+  try{
+    if (isAnyMembersSectionVisible()){
+      showTopbar(activeTopbarTarget);
+    } else {
+      hideTopbar();
+    }
+  }catch(e){
+    // ignore
+  }
+}
+
+// periodic fallback in case something prevents immediate show/hide (works in embeds)
+setInterval(updateTopbarVisibility, 600);
+
+// helper to escape HTML for safety
+function escapeHTML(s){
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
 </script>
 </body>
 </html>

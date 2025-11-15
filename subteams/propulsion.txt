@@ -1,0 +1,11 @@
+Propulsion
+"The power that gets us off the ground."
+
+The heart of the rocket focused on solid motor selection and thrust.
+Studying thrust curves, engine performance effects, and how the motor integrates with the airframe.
+Ensuring the motor mount and nozzle alignment are precise and safe.
+Testing different motor options in OpenRocket and assisting in static firing tests.
+Collaborates closely with Airframe to ensure the structure supports the chosen motor.
+
+Key Skills: Simulation, physics, thrust analysis, safety procedures.
+Mission Goal: Choose and validate the perfect solid motor for a safe and high-performing flight.

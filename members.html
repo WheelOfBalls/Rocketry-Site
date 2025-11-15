@@ -14,6 +14,7 @@
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink-900);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+body.has-topbar{padding-top:88px}
 a{color:var(--blue-500);text-decoration:none}
 a:hover{text-decoration:underline}
 .container{max-width:1100px;margin:auto;padding:0 18px}
@@ -39,11 +40,52 @@ ul.clean li:before{content:"✦";position:absolute;left:0;top:0;color:var(--blue
   margin-left: auto;
   margin-right: auto;
 }
+.members-topbar{position:fixed;top:14px;left:50%;transform:translateX(-50%);background:var(--bg-elev);padding:8px 14px;border-radius:999px;box-shadow:0 12px 32px -18px rgba(10,108,255,0.35);z-index:9999}
+.members-topbar-inner{display:flex;gap:8px;align-items:center}
+.topbar-item{background:transparent;border:none;padding:8px 14px;border-radius:999px;cursor:pointer;font-weight:800;color:var(--ink-900);transition:transform .18s cubic-bezier(.4,1.4,.6,1.0), box-shadow .18s}
+.topbar-item:hover{transform:scale(1.08);box-shadow:0 12px 26px -16px var(--blue-600)}
+.topbar-item.active{background:var(--blue-600);color:#fff}
+@media (max-width:640px){
+  body.has-topbar{padding-top:120px}
+  .members-topbar{left:8px;right:8px;transform:none;padding:6px 8px}
+  .members-topbar-inner{overflow:auto;white-space:nowrap}
+}
+.btn{display:inline-flex;align-items:center;gap:6px;border-radius:999px;font-weight:800;padding:10px 16px;border:1px solid color-mix(in oklab,var(--ink-500) 30%, transparent);background:var(--bg);color:var(--ink-900);cursor:pointer;transition:transform .18s cubic-bezier(.4,1.4,.6,1.0), box-shadow .18s}
+.btn:hover{transform:scale(1.08);box-shadow:0 12px 26px -16px var(--blue-600)}
+.drive-btn{display:inline-block;background:var(--blue-500);color:#fff;padding:10px 14px;border-radius:10px;font-weight:800;text-decoration:none;transition:transform .18s cubic-bezier(.4,1.4,.6,1.0), box-shadow .18s}
+.drive-btn:hover{transform:scale(1.08);box-shadow:0 12px 28px -16px var(--blue-600)}
+.mission-info-card{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.mission-info-card img{max-width:220px;width:100%;height:auto;border-radius:18px;box-shadow:0 12px 30px -12px rgba(10,108,255,.55);background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.6),transparent)}
+.mission-summary{flex:1;min-width:260px}
+.mission-summary-header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.mission-summary h2{margin:0;font-size:clamp(24px,3vw,36px)}
+.mission-summary p{margin-top:0;margin-bottom:10px}
+.mission-summary-body{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start}
+.mission-summary-text{flex:1;min-width:220px}
+.mission-timeline{flex:1;min-width:240px;margin-top:0}
+.mission-timeline img{width:100%;max-width:520px;border-radius:12px;box-shadow:0 8px 24px -12px rgba(10,108,255,.45)}
+.btn.ghost{background:transparent}
+.subteam-detail-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.subteam-detail-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.subteam-content{margin-top:16px;color:var(--ink-700)}
+.subteam-content p{margin-top:0}
+.subteam-content-grid{display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;margin-top:16px}
+.subteam-detail-photo{max-width:320px;width:100%;border-radius:14px;box-shadow:0 12px 30px -18px rgba(10,108,255,.5);display:none}
 </style>
 </head>
 
-<body>
-<section class="hero">
+<body class="has-topbar">
+<nav id="members-topbar" class="members-topbar" aria-label="Subteam navigation">
+  <div class="members-topbar-inner">
+    <button class="topbar-item active" data-target="members">Members Portal</button>
+    <button class="topbar-item" data-target="airframe">Airframe &amp; Structure</button>
+    <button class="topbar-item" data-target="propulsion">Propulsion</button>
+    <button class="topbar-item" data-target="recovery">Recovery</button>
+    <button class="topbar-item" data-target="payload">Payload</button>
+    <button class="topbar-item" data-target="avionics">Avionics &amp; Electronics</button>
+  </div>
+</nav>
+<section class="hero portal-section" id="members-hero">
   <div class="container hero-wrap">
     <div>
       <div class="brand">
@@ -59,7 +101,28 @@ ul.clean li:before{content:"✦";position:absolute;left:0;top:0;color:var(--blue
   </div>
 </section>
 
-<section>
+<section class="portal-section" id="members-mission-info">
+  <div class="container">
+    <div class="card mission-info-card">
+      <img src="assets/UTS-1_Ascension_Insignia_PNG.png" alt="UTS-1 Ascension Insignia">
+      <div class="mission-summary">
+        <div class="mission-summary-header">
+          <h2>UTS-1 Ascension</h2>
+          <a class="drive-btn" href="https://drive.google.com/drive/folders/1oP5-8z8HXh94rHKjprO0mPFziK5m-kGn?usp=sharing" target="_blank" rel="noopener">Mission Folder</a>
+        </div>
+        <div class="mission-summary-body">
+          <div class="mission-summary-text" id="members-mission-summary">Summary of mission and goals.</div>
+          <div class="mission-timeline">
+            <h3>Mission Timeline</h3>
+            <img src="assets/Ascension%20Timeline.png" alt="UTS-1 Ascension Timeline">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="portal-section" id="members-announcements">
   <div class="container">
     <div class="card" style="margin-top:18px">
       <h2>Members Announcements</h2>
@@ -69,7 +132,7 @@ ul.clean li:before{content:"✦";position:absolute;left:0;top:0;color:var(--blue
 </section>
 
 
-<section style="padding-top:0;">
+<section class="portal-section" id="members-calendar" style="padding-top:0;">
   <div class="container">
     <div id="calendar" class="card" style="flex:1 1 350px;min-width:300px;">
       <h2>Calendar</h2>
@@ -81,7 +144,7 @@ ul.clean li:before{content:"✦";position:absolute;left:0;top:0;color:var(--blue
   </div>
 </section>
 
-<section id="contact">
+<section id="contact" class="portal-section">
   <div class="container grid-2">
     <div class="card reveal" style="grid-column: span 2;">
       <h2 style="text-align:center;">Meet the Team</h2>
@@ -89,6 +152,25 @@ ul.clean li:before{content:"✦";position:absolute;left:0;top:0;color:var(--blue
   <img src="assets/ExecsPhoto.jpeg" alt="UTS Rocketry Team Photo" class="team-photo">
         <p><strong>Execs:</strong> <a href="mailto:zhajoh@utschools.ca">Johnathan Zhang</a> · <a href="mailto:lunoi@utschools.ca">Oisin Lundon</a> · <a href="mailto:llma@utschools.ca">Mattias Libesman‑Lee</a></p>
         <p><strong>Staff Supervisor:</strong> <a href="mailto:thomas.nachshen@utschools.ca">Mr. Nachshen</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="subteam-detail" style="display:none;">
+  <div class="container">
+    <div class="card">
+      <div class="subteam-detail-head">
+        <h2 id="subteam-title" style="margin:0;">Members Portal</h2>
+        <div class="subteam-detail-actions">
+          <a id="subteam-drive" class="drive-btn" href="#" target="_blank" rel="noopener" style="display:none;">Folder</a>
+        </div>
+      </div>
+      <div class="subteam-content-grid">
+        <img id="subteam-image" class="subteam-detail-photo" src="" alt="Subteam visual" style="display:none;">
+        <div class="subteam-content" id="subteam-content">
+          <p>Select a subteam from the bar above to load its details.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -131,6 +213,105 @@ fetch('announcments.txt')
 document.getElementById('back-btn').addEventListener('click', () => {
   window.location.href = 'index.html';
 });
+
+const membersSections = Array.from(document.querySelectorAll('.portal-section'));
+const subteamSection = document.getElementById('subteam-detail');
+const subteamContent = document.getElementById('subteam-content');
+const subteamTitle = document.getElementById('subteam-title');
+const subteamDriveBtn = document.getElementById('subteam-drive');
+const subteamImage = document.getElementById('subteam-image');
+const missionSummaryEl = document.getElementById('members-mission-summary');
+const subteamDetails = {
+  airframe: { title: 'Airframe & Structure', file: 'subteams/airframe.txt', drive: 'https://drive.google.com/drive/folders/1zbsAUug3qgkl2ZO4NNdr3jSOXOj2PUOx?usp=sharing', image: 'assets/Ascension%20Structure.png' },
+  propulsion: { title: 'Propulsion', file: 'subteams/propulsion.txt', drive: 'https://drive.google.com/drive/folders/1mVWVRmwIK9wUXQAkmsFCMyw_RuaJeSSD?usp=sharing', image: 'assets/Ascension%20Propulsion.png' },
+  recovery: { title: 'Recovery', file: 'subteams/recovery.txt', drive: 'https://drive.google.com/drive/folders/1qNLYnXMIF5mPo5r_mWvnrqy5Bd_J5_s_?usp=sharing', image: 'assets/Ascension%20Recovery.png' },
+  payload: { title: 'Payload', file: 'subteams/payload.txt', drive: 'https://drive.google.com/drive/folders/1_4oAQ3Cpfb2av9ywwG58SUxS1xPAfx5l?usp=sharing', image: 'assets/Ascension%20Payload.png' },
+  avionics: { title: 'Avionics & Electronics', file: 'subteams/avionics.txt', drive: 'https://drive.google.com/drive/folders/1aFLbDr6QvdL4zBIiKESB8ivaBqPUNW3D?usp=sharing', image: 'assets/Ascension%20Avionics.png' }
+};
+
+function setTopbarActive(id){
+  document.querySelectorAll('#members-topbar .topbar-item').forEach(btn=>{
+    btn.classList.toggle('active', btn.dataset.target === id);
+  });
+}
+
+function showPortalView(){
+  membersSections.forEach(sec => sec.style.display = '');
+  subteamSection.style.display = 'none';
+  setTopbarActive('members');
+}
+
+function showSubteamView(id){
+  const meta = subteamDetails[id];
+  if (!meta) return;
+  membersSections.forEach(sec => sec.style.display = 'none');
+  subteamSection.style.display = '';
+  subteamTitle.textContent = meta.title || 'Subteam';
+  if (subteamDriveBtn){
+    if (meta.drive){
+      subteamDriveBtn.href = meta.drive;
+      subteamDriveBtn.textContent = `${meta.title || 'Subteam'} Folder`;
+      subteamDriveBtn.style.display = '';
+    } else {
+      subteamDriveBtn.style.display = 'none';
+    }
+  }
+  if (subteamImage){
+    if (meta.image){
+      subteamImage.src = meta.image;
+      subteamImage.alt = (meta.title || 'Subteam') + ' visual';
+      subteamImage.style.display = '';
+    } else {
+      subteamImage.style.display = 'none';
+    }
+  }
+  subteamContent.innerHTML = '<p>Loading details...</p>';
+  loadSubteamDetails(meta.file || `subteams/${id}.txt`);
+  setTopbarActive(id);
+}
+
+document.querySelectorAll('#members-topbar .topbar-item').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const target = btn.dataset.target;
+    if (target === 'members'){
+      showPortalView();
+    } else {
+      showSubteamView(target);
+    }
+  });
+});
+
+function loadSubteamDetails(path){
+  fetch(path)
+    .then(r => r.ok ? r.text() : Promise.reject(new Error('Not found')))
+    .then(text => {
+      const safe = escapeHTML(text).replace(/\n\n+/g,'</p><p>').replace(/\n/g,'<br>');
+      subteamContent.innerHTML = '<p>' + safe + '</p>';
+    })
+    .catch(()=>{
+      subteamContent.innerHTML = '<p>No details yet.</p>';
+    });
+}
+
+function loadMissionSummary(){
+  if (!missionSummaryEl) return;
+  fetch('mission.txt')
+    .then(r => r.ok ? r.text() : Promise.reject(new Error('Mission file missing')))
+    .then(text => {
+      const formatted = escapeHTML(text.trim()).replace(/\n\n+/g,'</p><p>').replace(/\n/g,'<br>');
+      missionSummaryEl.innerHTML = formatted ? '<p>' + formatted + '</p>' : '<p>Summary of mission and goals.</p>';
+    })
+    .catch(()=>{
+      missionSummaryEl.innerHTML = '<p>Summary of mission and goals.</p>';
+    });
+}
+
+function escapeHTML(str){
+  return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+loadMissionSummary();
+showPortalView();
 </script>
 </body>
 </html>
