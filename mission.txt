@@ -1,3 +1,7 @@
-UTS-1 Ascension is our first rocket
-
-Add whatever here
+UTS-1: Ascension is the first ever rocket built by UTS Rocketry, marking the beginning of UTS's venture into aerospace engineering. The vehicle is entirely designed and constructed by students, bringing together work from 5 different specialized subteams:
+- Airframe & Structures
+- Avionics & Electronics
+- Payload
+- Propulsion
+- Recovery
+Ascension serves as our first complete integration of design, manufacturing, and testing practices, demonstrating the potential in functional launch vehicles built entirely by high-school students. This project establishes the foundation on which future UTS Rocketry will be built on.
