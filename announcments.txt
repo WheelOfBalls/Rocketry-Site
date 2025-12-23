@@ -1,7 +1,7 @@
 Download Fusion here: https://www.autodesk.com/education/edu-software/fusion 
 
-`   - Select students, then select product, then select fusion, then fill in the appropriate information, then click access products to download (note it may take a couple minutes to load)`
-`   - Make sure you use your school email`
+`   -    Select students, then select product, then select fusion, then fill in the appropriate information, then click access products to download (note it may take a couple minutes to load)`
+`   -    Make sure you use your school email`
 
 Dowload OpenRocket here: https://openrocket.info/downloads.html?vers=24.12#content-Windows 
 `Members Password: BlastOFF`
